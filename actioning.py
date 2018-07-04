@@ -99,9 +99,14 @@ def get_runbooks_to_exec(item, target, logger):
         call_on = target['runbooks'][item['runbook']]['actions'][action]['call_on']
         trigger = target['runbooks'][item['runbook']]['actions'][action]['trigger']
         frequency = target['runbooks'][item['runbook']]['actions'][action]['frequency']
+	
+	if "run_once" in target['runbooks'][item['runbook']]['actions'][action]:
+	    run_once = target['runbooks'][item['runbook']]['actions'][action]['run_once']
+
         last_run = 0
         if "last_run" in target['runbooks'][item['runbook']]['actions'][action]:
             last_run = target['runbooks'][item['runbook']]['actions'][action]['last_run']
+
 
         # see if we are beyond or equal to trigger threshold
         for status in call_on:
@@ -121,6 +126,11 @@ def get_runbooks_to_exec(item, target, logger):
         for check in item['checks'].keys():
             if item['checks'][check] not in call_on:
                 run_me = False
+        
+	logger.debug("Last run: {} and Run Once: {}".format(last_run, run_once))    
+	if last_run != 0 and run_once:
+	    logger.debug("Action was already run once and will not run again")    
+	    run_me = False #turns False as action has already run
 
         if run_me is True:
             run_these[item['runbook']].add(action)

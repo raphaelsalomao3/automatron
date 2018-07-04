@@ -16,5 +16,5 @@ RUN pip install --upgrade setuptools pip
 RUN pip install -r /requirements.txt
 RUN pip install honcho
 ADD . /
-#RUN find plugins -name "*.sh" -exec chmod 755 {} \;
+RUN find plugins -name "*.sh" -exec chmod 755 {} \;
 CMD honcho start

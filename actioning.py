@@ -127,9 +127,10 @@ def get_runbooks_to_exec(item, target, logger):
             if item['checks'][check] not in call_on:
                 run_me = False
         
-	logger.debug("Last run: {} and Run Once: {}".format(last_run, run_once))    
+	# Checking if run_once action has already run
+	# logger.debug("Action {}: Last run {} and Run Once {}".format(action, last_run, run_once))    
 	if last_run != 0 and run_once:
-	    logger.debug("Action was already run once and will not run again")    
+	    logger.debug("Action {} was already run once and will not run again".format(action))    
 	    run_me = False #turns False as action has already run
 
         if run_me is True:

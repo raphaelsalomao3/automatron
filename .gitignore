@@ -69,7 +69,5 @@ site/
 # mac
 *.DS_Store
 
-
 #Conf file
-config/config.yml
-config/runbooks/*
+config/**

@@ -54,12 +54,12 @@ def listen(config, dbc, logger):
                         action, runbook, target['hostname']))
                     if execute_runbook(target['runbooks'][runbook]['actions'][action],
                                        target, config, logger):
-                        logger.debug("Execution of action {0} on target {1} Successful".format(
+                        logger.info("Execution of action {0} on target {1} Successful".format(
                             action, target['hostname']))
                         target['runbooks'][runbook]['actions'][action]['last_run'] = time.time()
                         dbc.save_target(target=target)
                     else:
-                        logger.debug("Execution of action {0} on target {1} Failed".format(
+                        logger.info("Execution of action {0} on target {1} Failed".format(
                             action, target['hostname']))
 
 def update_target_status(item, target):
@@ -130,7 +130,7 @@ def get_runbooks_to_exec(item, target, logger):
 	# Checking if run_once action has already run
 	# logger.debug("Action {}: Last run {} and Run Once {}".format(action, last_run, run_once))    
 	if last_run != 0 and run_once:
-	    logger.debug("Action {} was already run once and will not run again".format(action))    
+	    logger.info("Action {} was already run once and will not run again".format(action))    
 	    run_me = False #turns False as action has already run
 
         if run_me is True:

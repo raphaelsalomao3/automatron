@@ -70,4 +70,4 @@ site/
 *.DS_Store
 
 #Conf file
-config/**
+config/config.yml
